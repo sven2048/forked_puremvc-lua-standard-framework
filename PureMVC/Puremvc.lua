@@ -1,5 +1,5 @@
 Puremvc = Puremvc or {}
-Puremvc.PACKAGE_NAME = "3rdParty.PureMVC"
+Puremvc.PACKAGE_NAME = "PureMVC"
 
 require(Puremvc.PACKAGE_NAME..".oop")
 
