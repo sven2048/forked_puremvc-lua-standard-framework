@@ -1,10 +1,10 @@
-local SimpleCommand = class("SimpleCommand" ,  Puremvc.Notifier)
+local SimpleCommand = class("SimpleCommand", PureMVC.Notifier)
 
 function SimpleCommand:ctor()
     SimpleCommand.super.ctor(self)
 end
 
-function SimpleCommand:execute(notification)
+function SimpleCommand:Execute(notification)
 end
 
 return SimpleCommand

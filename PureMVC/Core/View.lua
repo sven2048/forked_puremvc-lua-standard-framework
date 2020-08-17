@@ -2,50 +2,50 @@ local View = class("View")
 local instance
 
 function View:ctor()
-    assert(instance == nil , "View Singleton already constructed!")
-    instance = self
+    assert(instance == nil, "View Singleton already constructed!")
+    instance         = self
     self.mediatorMap = {}
     self.observerMap = {}
-    self:initializeView()
+    self:InitializeView()
 end
 
-function View:initializeView()
+function View:InitializeView()
 end
 
-function View.getInstance(viewFunc)
+function View.GetInstance(viewFunc)
     if not instance and type(viewFunc) == "function" then
         instance = viewFunc()
     end
     return instance
 end
 
-function View:registerObserver(notificationName,observer)
+function View:RegisterObserver(notificationName, observer)
     local observers = self.observerMap[notificationName]
     if not observers then
-        observers = {}
+        observers                          = {}
         self.observerMap[notificationName] = observers
     end
-    table.insert(observers,observer)
+    table.insert(observers, observer)
 end
 
-function View:notifyObservers(notification)
-    local notificationName = notification:getName()
-    local observers = self.observerMap[notificationName]
+function View:NotifyObservers(notification)
+    local notificationName = notification:GetName()
+    local observers        = self.observerMap[notificationName]
     if observers then
-        for _,v in ipairs(observers) do
-            v:notifyObserver(notification)
+        for _, v in ipairs(observers) do
+            v:NotifyObserver(notification)
         end
     end
 end
 
-function View:removeObserver(notificationName, notifyContext)
+function View:RemoveObserver(notificationName, notifyContext)
     local observers = self.observerMap[notificationName]
     if not observers then
         return
     end
-    for k,v in ipairs(observers) do
-        if v:compareNotifyContext(notifyContext) then
-            table.remove(observers,k)
+    for k, v in ipairs(observers) do
+        if v:CompareNotifyContext(notifyContext) then
+            table.remove(observers, k)
             break
         end
     end
@@ -54,41 +54,41 @@ function View:removeObserver(notificationName, notifyContext)
     end
 end
 
-function View:registerMediator(mediator)
-    local mediatorName = mediator:getMediatorName()
-    if not self:hasMediator(mediatorName) then
+function View:RegisterMediator(mediator)
+    local mediatorName = mediator:GetMediatorName()
+    if not self:HasMediator(mediatorName) then
         self.mediatorMap[mediatorName] = mediator
-        local interests = mediator:listNotificationInterests()
+        local interests                = mediator:ListNotificationInterests()
         if #interests > 0 then
-            local observer = Puremvc.Observer.new(mediator.handleNotification , mediator)
-            for _,v in ipairs(interests) do
-                self:registerObserver(v,observer)
+            local observer = PureMVC.Observer.new(mediator.HandleNotification, mediator)
+            for _, v in ipairs(interests) do
+                self:RegisterObserver(v, observer)
             end
         end
-        mediator:onRegister()
+        mediator:OnRegister()
     end
 end
 
-function View:retrieveMediator(mediatorName)
+function View:RetrieveMediator(mediatorName)
     return self.mediatorMap[mediatorName]
 end
 
-function View:removeMediator(mediatorName)
-    local mediator = self:retrieveMediator(mediatorName)
+function View:RemoveMediator(mediatorName)
+    local mediator = self:RetrieveMediator(mediatorName)
     if mediator then
-        local interests = mediator:listNotificationInterests()
+        local interests = mediator:ListNotificationInterests()
         if #interests > 0 then
-            for _,v in ipairs(interests) do
-                self:removeObserver(v,mediator)
+            for _, v in ipairs(interests) do
+                self:RemoveObserver(v, mediator)
             end
         end
-        mediator:onRemove()
+        mediator:OnRemove()
     end
     return mediator
 end
 
-function View:hasMediator(mediatorName)
-    return self:retrieveMediator(mediatorName) ~= nil
+function View:HasMediator(mediatorName)
+    return self:RetrieveMediator(mediatorName) ~= nil
 end
 
 return View

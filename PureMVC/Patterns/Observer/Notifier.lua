@@ -3,15 +3,17 @@ local Notifier = class("Notifier")
 function Notifier:ctor()
 end
 
-function Notifier:sendNotification(notificationName,body,type)
-    local facade = Notifier.getFace()
+function Notifier:SendNotification(notificationName, body, type)
+    local facade = Notifier.GetFacade()
     if facade then
-        facade:sendNotification(notificationName,body,type)
+        facade:SendNotification(notificationName, body, type)
     end
 end
 
-function Notifier.getFace()
-    return Puremvc.Facade.getInstance(function() return Puremvc.Facade.new() end)
+function Notifier.GetFacade()
+    return PureMVC.Facade.GetInstance(function()
+        return PureMVC.Facade.new()
+    end)
 end
 
 return Notifier

@@ -1,21 +1,21 @@
 local Observer = class("Observer")
 
-function Observer:ctor(notifyMethod,notifyContext)
-    self.notifyMethod = notifyMethod
+function Observer:ctor(notifyMethod, notifyContext)
+    self.notifyMethod  = notifyMethod
     self.notifyContext = notifyContext
 end
 
-function Observer:getNotifyContext()
+function Observer:GetNotifyContext()
     return self.notifyContext
 end
 
-function Observer:notifyObserver(notification)
+function Observer:NotifyObserver(notification)
     if self.notifyMethod and type(self.notifyMethod) == "function" then
-        self.notifyMethod(self.notifyContext , notification)
+        self.notifyMethod(self.notifyContext, notification)
     end
 end
 
-function Observer:compareNotifyContext(notifyContext)
+function Observer:CompareNotifyContext(notifyContext)
     return self.notifyContext == notifyContext
 end
 

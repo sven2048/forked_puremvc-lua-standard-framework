@@ -1,32 +1,32 @@
-local Mediator = class("Mediator", Puremvc.Notifier)
+local Mediator = class("Mediator", PureMVC.Notifier)
 
-function Mediator:ctor(mediatorName ,viewComponent)
+function Mediator:ctor(mediatorName, viewComponent)
     if not mediatorName then
         mediatorName = "Mediator"
     end
-    self.mediatorName = mediatorName
+    self.mediatorName  = mediatorName
     self.viewComponent = viewComponent
 end
 
-function Mediator:getMediatorName()
+function Mediator:GetMediatorName()
     return self.mediatorName
 end
 
-function Mediator:getViewComponent()
+function Mediator:GetViewComponent()
     return self.viewComponent
 end
 
-function Mediator:listNotificationInterests()
+function Mediator:ListNotificationInterests()
     return {}
 end
 
-function Mediator:handleNotification(notification)
+function Mediator:HandleNotification(notification)
 end
 
-function Mediator:onRegister()
+function Mediator:OnRegister()
 end
 
-function Mediator:onRemove()
+function Mediator:OnRemove()
 end
 
 return Mediator

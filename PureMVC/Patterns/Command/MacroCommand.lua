@@ -1,27 +1,28 @@
-local MacroCommand = class("MacroCommand" , Puremvc.Notifier)
+local MacroCommand = class("MacroCommand", PureMVC.Notifier)
 
 function MacroCommand:ctor()
     MacroCommand.super.ctor(self)
-    self.subcommands = {}
-    self:initializeMacroCommand()
+    self.subCommands = {}
+    self:InitializeMacroCommand()
 end
 
-function MacroCommand:initializeMacroCommand()
+function MacroCommand:InitializeMacroCommand()
 end
 
-function MacroCommand:addSubCommand(commandFunc)
-    table.insert(self.subcommands , commandFunc)
+function MacroCommand:AddSubCommand(commandFunc)
+    
+    table.insert(self.subCommands, commandFunc)
 end
 
-function MacroCommand:execute(notification)
-    if #self.subcommands == 0 then
+function MacroCommand:Execute(notification)
+    if #self.subCommands == 0 then
         return
     end
-    for _, commandFunc in ipairs(self.subcommands) do
+    for _, commandFunc in ipairs(self.subCommands) do
         local commandInstance = commandFunc()
-        commandInstance:execute(notification)
+        commandInstance:Execute(notification)
     end
-    self.subcommands = {}
+    self.subCommands = {}
 end
 
 return MacroCommand

@@ -1,17 +1,17 @@
-Puremvc = Puremvc or {}
-Puremvc.PACKAGE_NAME = "PureMVC"
+PureMVC              = PureMVC or {}
+PureMVC.PACKAGE_NAME = "PureMVC"
 
-require(Puremvc.PACKAGE_NAME..".oop")
+require(PureMVC.PACKAGE_NAME .. ".oop")
 
-Puremvc.Observer = require(Puremvc.PACKAGE_NAME..".Patterns.Observer.Observer")
-Puremvc.View = require(Puremvc.PACKAGE_NAME..".Core.View")
-Puremvc.Model = require(Puremvc.PACKAGE_NAME..".Core.Model")
-Puremvc.Controller = require(Puremvc.PACKAGE_NAME..".Core.Controller")
-Puremvc.Facade = require(Puremvc.PACKAGE_NAME..".Patterns.Facade.Facade")
-Puremvc.Notifier = require(Puremvc.PACKAGE_NAME..".Patterns.Observer.Notifier")
+PureMVC.Observer      = require(PureMVC.PACKAGE_NAME .. ".Patterns.Observer.Observer")
+PureMVC.View          = require(PureMVC.PACKAGE_NAME .. ".Core.View")
+PureMVC.Model         = require(PureMVC.PACKAGE_NAME .. ".Core.Model")
+PureMVC.Controller    = require(PureMVC.PACKAGE_NAME .. ".Core.Controller")
+PureMVC.Facade        = require(PureMVC.PACKAGE_NAME .. ".Patterns.Facade.Facade")
+PureMVC.Notifier      = require(PureMVC.PACKAGE_NAME .. ".Patterns.Observer.Notifier")
 
-Puremvc.Proxy = require(Puremvc.PACKAGE_NAME..".Patterns.Proxy.Proxy")
-Puremvc.Mediator = require(Puremvc.PACKAGE_NAME..".Patterns.Mediator.Mediator")
-Puremvc.MacroCommand = require(Puremvc.PACKAGE_NAME .. '.Patterns.Command.MacroCommand')
-Puremvc.SimpleCommand = require(Puremvc.PACKAGE_NAME .. '.Patterns.Command.SimpleCommand')
-Puremvc.Notification = require(Puremvc.PACKAGE_NAME..".Patterns.Observer.Notification")
+PureMVC.Proxy         = require(PureMVC.PACKAGE_NAME .. ".Patterns.Proxy.Proxy")
+PureMVC.Mediator      = require(PureMVC.PACKAGE_NAME .. ".Patterns.Mediator.Mediator")
+PureMVC.MacroCommand  = require(PureMVC.PACKAGE_NAME .. '.Patterns.Command.MacroCommand')
+PureMVC.SimpleCommand = require(PureMVC.PACKAGE_NAME .. '.Patterns.Command.SimpleCommand')
+PureMVC.Notification  = require(PureMVC.PACKAGE_NAME .. ".Patterns.Observer.Notification")

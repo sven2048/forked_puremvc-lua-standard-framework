@@ -2,86 +2,92 @@ local Facade = class("Facade")
 local instance
 
 function Facade:ctor()
-    assert(instance == nil , "Facade Singleton already constructed!")
+    assert(instance == nil, "Facade Singleton already constructed!")
     instance = self
-    self:initializeFacade()
+    self:InitializeFacade()
 end
 
-function Facade.getInstance(facadeFunc)
+function Facade.GetInstance(facadeFunc)
     if not instance and type(facadeFunc) == "function" then
         instance = facadeFunc()
     end
     return instance
 end
 
-function Facade:initializeFacade()
-    self:initializeModel();
-    self:initializeController();
-    self:initializeView();
+function Facade:InitializeFacade()
+    self:InitializeModel()
+    self:InitializeController()
+    self:InitializeView()
 end
 
-function Facade:initializeModel()
-    self.model = Puremvc.Model.getInstance(function() return Puremvc.Model.new() end)
+function Facade:InitializeModel()
+    self.model = PureMVC.Model.GetInstance(function()
+        return PureMVC.Model.new()
+    end)
 end
 
-function Facade:initializeController()
-    self.controller = Puremvc.Controller.getInstance(function() return Puremvc.Controller.new() end)
+function Facade:InitializeController()
+    self.controller = PureMVC.Controller.GetInstance(function()
+        return PureMVC.Controller.new()
+    end)
 end
 
-function Facade:initializeView()
-    self.view = Puremvc.View.getInstance(function() return Puremvc.View.new() end)
+function Facade:InitializeView()
+    self.view = PureMVC.View.GetInstance(function()
+        return PureMVC.View.new()
+    end)
 end
 
-function Facade:registerCommand(notificationName,commandFunc)
-    self.controller:registerCommand(notificationName,commandFunc)
+function Facade:RegisterCommand(notificationName, commandFunc)
+    self.controller:RegisterCommand(notificationName, commandFunc)
 end
 
-function Facade:removeCommand(notificationName)
-    self.controller:removeCommand(notificationName)
+function Facade:RemoveCommand(notificationName)
+    self.controller:RemoveCommand(notificationName)
 end
 
-function Facade:hasCommand(notificationName)
-    return self.controller:hasCommand(notificationName)
+function Facade:HasCommand(notificationName)
+    return self.controller:HasCommand(notificationName)
 end
 
-function Facade:registerProxy(proxy)
-    self.model:registerProxy(proxy)
+function Facade:RegisterProxy(proxy)
+    self.model:RegisterProxy(proxy)
 end
 
-function Facade:retrieveProxy(proxyName)
-    return self.model:retrieveProxy(proxyName)
+function Facade:RetrieveProxy(proxyName)
+    return self.model:RetrieveProxy(proxyName)
 end
 
-function Facade:removeProxy(proxyName)
-    return self.model:removeProxy(proxyName)
+function Facade:RemoveProxy(proxyName)
+    return self.model:RemoveProxy(proxyName)
 end
 
-function Facade:hasProxy(proxyName)
-    return self.model:hasProxy(proxyName)
+function Facade:HasProxy(proxyName)
+    return self.model:HasProxy(proxyName)
 end
 
-function Facade:registerMediator(mediator)
-    self.view:registerMediator(mediator)
+function Facade:RegisterMediator(mediator)
+    self.view:RegisterMediator(mediator)
 end
 
-function Facade:retrieveMediator(mediatorName)
-    return self.view:retrieveMediator(mediatorName)
+function Facade:RetrieveMediator(mediatorName)
+    return self.view:RetrieveMediator(mediatorName)
 end
 
-function Facade:removeMediator(mediatorName)
-    return self.view:removeMediator(mediatorName)
+function Facade:RemoveMediator(mediatorName)
+    return self.view:RemoveMediator(mediatorName)
 end
 
-function Facade:hasMediator(mediatorName)
-    return self.view:hasMediator(mediatorName)
+function Facade:HasMediator(mediatorName)
+    return self.view:HasMediator(mediatorName)
 end
 
-function Facade:sendNotification(notificationName , body , type)
-    self:notifyObservers(Puremvc.Notification.new(notificationName , body, type))
+function Facade:SendNotification(notificationName, body, type)
+    self:NotifyObservers(PureMVC.Notification.new(notificationName, body, type))
 end
 
-function Facade:notifyObservers(notification)
-    self.view:notifyObservers(notification)
+function Facade:NotifyObservers(notification)
+    self.view:NotifyObservers(notification)
 end
 
 return Facade

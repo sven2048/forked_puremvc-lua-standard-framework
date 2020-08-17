@@ -1,24 +1,24 @@
-local Proxy = class("Proxy", Puremvc.Notifier)
+local Proxy = class("Proxy", PureMVC.Notifier)
 
 function Proxy:ctor(proxyName, data)
     if not proxyName then
         proxyName = "Proxy"
     end
     self.proxyName = proxyName
-    self.data = data
+    self.data      = data
 end
 
-function Proxy:onRegister()
+function Proxy:OnRegister()
 end
 
-function Proxy:onRemove()
+function Proxy:OnRemove()
 end
 
-function Proxy:getProxyName()
+function Proxy:GetProxyName()
     return self.proxyName
 end
 
-function Proxy:getData()
+function Proxy:GetData()
     return self.data
 end
 

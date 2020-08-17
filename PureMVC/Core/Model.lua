@@ -2,42 +2,42 @@ local Model = class("Model")
 local instance
 
 function Model:ctor()
-    assert(instance == nil , "Model Singleton already constructed!")
-    instance = self
+    assert(instance == nil, "Model Singleton already constructed!")
+    instance      = self
     self.proxyMap = {}
-    self:initializeModel()
+    self:InitializeModel()
 end
 
-function Model:initializeModel()
+function Model:InitializeModel()
 end
 
-function Model.getInstance(modelFunc)
+function Model.GetInstance(modelFunc)
     if not instance and type(modelFunc) == "function" then
         instance = modelFunc()
     end
     return instance
 end
 
-function Model:registerProxy(proxy)
-    self.proxyMap[proxy:getProxyName()] = proxy;
-    proxy:onRegister();
+function Model:RegisterProxy(proxy)
+    self.proxyMap[proxy:GetProxyName()] = proxy
+    proxy:OnRegister()
 end
 
-function Model:retrieveProxy(proxyName)
+function Model:RetrieveProxy(proxyName)
     return self.proxyMap[proxyName]
 end
 
-function Model:removeProxy(proxyName)
-    local proxy = self:retrieveProxy(proxyName)
+function Model:RemoveProxy(proxyName)
+    local proxy = self:RetrieveProxy(proxyName)
     if proxy then
         self.proxyMap[proxyName] = nil
-        proxy:onRemove()
+        proxy:OnRemove()
     end
     return proxy
 end
 
-function Model:hasProxy(proxyName)
-    return self:retrieveProxy(proxyName) ~= nil
+function Model:HasProxy(proxyName)
+    return self:RetrieveProxy(proxyName) ~= nil
 end
 
 return Model
