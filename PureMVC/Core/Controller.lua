@@ -25,7 +25,7 @@ end
 
 function Controller:executeCommand(notification)
     local commandFunc = self.commandMap[notification:getName()]
-    local commandInstance = commandFunc.new();
+    local commandInstance = commandFunc();
     commandInstance:execute(notification)
 end
 
