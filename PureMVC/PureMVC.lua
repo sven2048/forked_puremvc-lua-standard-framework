@@ -13,7 +13,7 @@
 ---@field SimpleCommand PureMVC.SimpleCommand
 ---@field Notification PureMVC.Notification
 PureMVC              = PureMVC or {}
-PureMVC.PACKAGE_NAME = "PureMVC"
+PureMVC.PACKAGE_NAME = PureMVC.PACKAGE_NAME or "PureMVC"
 
 require(PureMVC.PACKAGE_NAME .. ".oop")
 
