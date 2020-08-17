@@ -1,3 +1,6 @@
+---@class PureMVC.View
+---@field mediatorMap table<string, PureMVC.Mediator>
+---@field observerMap table<string, PureMVC.Observer[]>
 local View = class("View")
 local instance
 
@@ -12,6 +15,8 @@ end
 function View:InitializeView()
 end
 
+---@param viewFunc fun():PureMVC.View
+---@return PureMVC.View
 function View.GetInstance(viewFunc)
     if not instance and type(viewFunc) == "function" then
         instance = viewFunc()
@@ -19,6 +24,8 @@ function View.GetInstance(viewFunc)
     return instance
 end
 
+---@param notificationName string
+---@param observer PureMVC.Observer
 function View:RegisterObserver(notificationName, observer)
     local observers = self.observerMap[notificationName]
     if not observers then
@@ -28,6 +35,7 @@ function View:RegisterObserver(notificationName, observer)
     table.insert(observers, observer)
 end
 
+---@param notification PureMVC.Notification
 function View:NotifyObservers(notification)
     local notificationName = notification:GetName()
     local observers        = self.observerMap[notificationName]
@@ -38,6 +46,8 @@ function View:NotifyObservers(notification)
     end
 end
 
+---@param notificationName string
+---@param notifyContext any
 function View:RemoveObserver(notificationName, notifyContext)
     local observers = self.observerMap[notificationName]
     if not observers then
@@ -54,6 +64,7 @@ function View:RemoveObserver(notificationName, notifyContext)
     end
 end
 
+---@param mediator PureMVC.Mediator
 function View:RegisterMediator(mediator)
     local mediatorName = mediator:GetMediatorName()
     if not self:HasMediator(mediatorName) then
@@ -69,10 +80,13 @@ function View:RegisterMediator(mediator)
     end
 end
 
+---@param mediatorName string
 function View:RetrieveMediator(mediatorName)
     return self.mediatorMap[mediatorName]
 end
 
+---@param mediatorName string
+---@return PureMVC.Mediator
 function View:RemoveMediator(mediatorName)
     local mediator = self:RetrieveMediator(mediatorName)
     if mediator then
@@ -87,6 +101,8 @@ function View:RemoveMediator(mediatorName)
     return mediator
 end
 
+---@param mediatorName string
+---@return boolean
 function View:HasMediator(mediatorName)
     return self:RetrieveMediator(mediatorName) ~= nil
 end

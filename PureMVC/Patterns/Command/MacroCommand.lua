@@ -1,7 +1,9 @@
-local MacroCommand = class("MacroCommand", PureMVC.Notifier)
+---@class PureMVC.MacroCommand : PureMVC.BaseCommand
+---@field subCommands PureMVC.BaseCommand[]
+local MacroCommand = class("MacroCommand", PureMVC.BaseCommand)
 
 function MacroCommand:ctor()
-    MacroCommand.super.ctor(self)
+    MacroCommand.super:ctor()
     self.subCommands = {}
     self:InitializeMacroCommand()
 end
@@ -9,11 +11,13 @@ end
 function MacroCommand:InitializeMacroCommand()
 end
 
+---@param commandFunc fun():PureMVC.BaseCommand
 function MacroCommand:AddSubCommand(commandFunc)
     
     table.insert(self.subCommands, commandFunc)
 end
 
+---@param notification PureMVC.Notification
 function MacroCommand:Execute(notification)
     if #self.subCommands == 0 then
         return

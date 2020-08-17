@@ -1,3 +1,6 @@
+---@class PureMVC.Controller
+---@field commandMap table<string, fun():PureMVC.BaseCommand>
+---@field view PureMVC.View
 local Controller = class("Controller")
 local instance
 
@@ -14,6 +17,8 @@ function Controller:InitializeController()
     end)
 end
 
+---@param controllerFunc fun():PureMVC.Controller
+---@return PureMVC.Controller
 function Controller.GetInstance(controllerFunc)
     if not instance and type(controllerFunc) == "function" then
         instance = controllerFunc()
@@ -21,16 +26,21 @@ function Controller.GetInstance(controllerFunc)
     return instance
 end
 
+---@param notificationName string
+---@return boolean
 function Controller:HasCommand(notificationName)
     return self.commandMap[notificationName] ~= nil
 end
 
+---@param notification PureMVC.Notification
 function Controller:ExecuteCommand(notification)
     local commandFunc     = self.commandMap[notification:GetName()]
     local commandInstance = commandFunc()
     commandInstance:Execute(notification)
 end
 
+---@param notificationName string
+---@param commandFunc fun():PureMVC.BaseCommand
 function Controller:RegisterCommand(notificationName, commandFunc)
     if not self:HasCommand(notificationName) then
         self.view:RegisterObserver(notificationName, PureMVC.Observer.new(self.ExecuteCommand, self))
@@ -38,6 +48,7 @@ function Controller:RegisterCommand(notificationName, commandFunc)
     self.commandMap[notificationName] = commandFunc
 end
 
+---@param notificationName string
 function Controller:RemoveCommand(notificationName)
     if not self:HasCommand(notificationName) then
         return
