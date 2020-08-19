@@ -96,6 +96,7 @@ function View:RemoveMediator(mediatorName)
                 self:RemoveObserver(v, mediator)
             end
         end
+        self.mediatorMap[mediatorName] = nil
         mediator:OnRemove()
     end
     return mediator
